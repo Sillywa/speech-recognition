@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style src="https://cdnjs.cloudflare.com/ajax/libs/layer/2.3/skin/layer.css"></style>
+    <style>
+    .hide {
+        display: none;
+    }
+    div.container {
+        margin: 0 auto;
+        width: 100px;
+    }
+    input {
+        height: 40px;
+        width: 80px;
+        border-radius: 20px;
+        background: #215798;
+        color: #fff;
+        border: none;
+        outline: 0;
+        line-height: 40px;
+        
+    }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+        <input id="start"  onclick="startRecording()" type="button" value="开始录音" />
+        <input id="stop" class="hide" onclick="stopRecording()"  type="button" value="结束录音" />       
+    </div>
+
+    <script type="text/javascript" src="./static/HZRecorder.js"></script>
+    <script src="./static/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/layer/2.3/layer.js"></script>
+    <script>
+        var recorder;
+        var start = document.getElementById('start');
+        var stop = document.getElementById('stop');
+        function startRecording() {
+            HZRecorder.get(function (rec) {
+                recorder = rec;
+                recorder.start();
+                start.setAttribute("class","hide")
+                stop.setAttribute("class","")
+            });
+        }
+        function stopRecording() {
+            recorder.stop();
+            stop.setAttribute("class","hide")
+            start.setAttribute("class","")
+            uploadAudio();
+        }
+        function uploadAudio() {
+            layer.open({
+                type: 3
+            })
+            recorder.upload("http://localhost:8888", function (state, e) {
+                switch (state) {
+                    case 'uploading':
+                        var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
+                        console.log(percentComplete)
+                        break;
+                    case 'ok':
+                        //alert(e.target.responseText);
+                        //alert("上传成功");
+                        console.log(JSON.parse(e.target.responseText))
+                        layer.closeAll()
+                        if (e.target.status != 200) {
+                            layer.msg(JSON.parse(e.target.responseText).result)
+                        } else {
+                            layer.msg(JSON.parse(e.target.responseText).result[0])
+                        }                        
+                        break;
+                    case 'error':
+                        layer.msg("上传失败");
+                        break;
+                    case 'cancel':
+                        layer.msg("上传被取消");
+                        break;
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

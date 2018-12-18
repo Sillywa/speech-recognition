@@ -46,7 +46,7 @@ let startRecognize = function (filePath,callback) {
         console.log(err)
         let result = {
             code: 1000,
-            result: "百度语音服务故障"
+            result: "请求百度语音服务出错"
         }
         result.status = 500
         callback(result)

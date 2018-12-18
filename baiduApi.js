@@ -43,6 +43,7 @@ let startRecognize = function (filePath,callback) {
         
         callback(result)
     }, function(err) {
+        console.log(err)
         let result = {
             code: 1000,
             result: "百度语音服务故障"

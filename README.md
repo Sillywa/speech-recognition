@@ -71,3 +71,6 @@ var geoCood = [
     {name:'澳门', geoCoord:[113.54, 22.19]}
 ]
 ```
+
+### 兼容性
+兼容 Chrome 和火狐，不支持IE浏览器

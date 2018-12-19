@@ -1,39 +1,4 @@
-### 快速开始
 
-1. git clone 本仓库
-2. 到工作目录 npm install 依赖包
-3. 运行项目 node app.js 
-4. 浏览器打开 localhost:8888
-
-### 后台依赖包
-1. baidu-aip-sdk： 百度语音识别api
-2. connect-multiparty： 用于接受前端传来的 formdata 文件
-3. express：  nodeJs框架
-
-### 前端所用库
-1. HZRecorder.js： 录音库
-2. jquery.js： 与 layer.js 配合使用
-3. layer.js： 弹出框库，与 jquery 配合使用
-4. https://webapi.amap.com/maps?v=1.4.11&key=dd79c3382cc80cc44e6f4a2ad547c912： 高德地图核心组件库
-
-
-最好不要改变各种js的引入顺序，不然可能发生意外
-
-如果不需要弹出框、提示可以删掉 2 和 3
-
-### 前端地图数据
-数据来源于 static/data.js
-
-### 前端核心代码
-前端主要代码 static/index.js
-
-### 使用说明
-点击 `开始录音` 即可开始说话
-
-点击 `结束录音` 即开始识别语音
-
-可以尝试着说 “我要去” + 下面任何一个地点，如果所说地点不在以下列表内将无法触发相应功能
-```js
 var geoCood = [
     {name:'兰州', geoCoord:[103.73, 36.03]},
     {name:'西宁', geoCoord:[101.74, 36.56]},
@@ -70,4 +35,3 @@ var geoCood = [
     {name:'香港', geoCoord:[114.17, 22.28]},
     {name:'澳门', geoCoord:[113.54, 22.19]}
 ]
-```
